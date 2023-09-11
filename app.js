@@ -12,11 +12,11 @@ choices.forEach((c) => {
 })
 
 playButton.addEventListener('click', (e) => {
-    const buttonsArray = Array.prototype.slice.call(choices, 0)
-    const isClicked = buttonsArray.filter((b)=> b.checked)
-    addTextToSpan(yourChoice, isClicked[0].id);
+    const buttonsArray = Array.from(choices)
+    const selected = buttonsArray.filter((b)=> b.checked)
+    addTextToSpan(yourChoice, selected[0].id);
     const randChoice = generateComputerChoice()
-    showResult(isClicked[0].id, randChoice)
+    showResult(selected[0].id, randChoice)
     e.target.disabled = true;
     choices.forEach((b)=> {
         b.checked = false;
@@ -31,10 +31,7 @@ function generateComputerChoice() {
 }
 
 function addTextToSpan(spanControl, text) {
-    while(spanControl.firstChild) {
-        spanControl.removeChild(spanControl.firstChild)
-    }
-    spanControl.appendChild(document.createTextNode(text))
+    spanControl.textContent = text
 }
 
 function showResult(userChoice, computerChoice) {
